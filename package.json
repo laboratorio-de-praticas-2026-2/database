@@ -1,0 +1,33 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "prisma generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laboratorio-de-praticas-2026-2/database.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/laboratorio-de-praticas-2026-2/database/issues"
+  },
+  "homepage": "https://github.com/laboratorio-de-praticas-2026-2/database#readme",
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "dotenv": "^17.4.2",
+    "prisma": "^7.10.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.0",
+    "@prisma/client": "^7.10.0"
+  }
+}
