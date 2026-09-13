@@ -1,4 +1,4 @@
-# Backend do Projeto
+# Banco de Dados do Projeto
 
 ## Fluxo de Desenvolvimento
 
