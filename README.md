@@ -43,7 +43,7 @@
 ### 1. Setup Inicial
 ```
 # Clone o Projeto
-git clone https://github.com/laboratorio-de-praticas-2026-1/database.git
+git clone https://github.com/laboratorio-de-praticas-2026-2/database.git
 cd <project-directory>
 
 # Inicie os serviços
