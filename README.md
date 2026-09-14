@@ -13,7 +13,7 @@
     c. **Subir o Banco de Dados:** Para iniciar o banco de dados localmente, utilize o Docker. Rode o seguinte comando no terminal (na raiz do projeto):
     
     ```bash
-    docker compose -f compose.dba.yml up --build -d
+    docker compose -f compose.dba.yml up -d
     ```
 
     d. **Conectar ao Banco de Dados:** Para visualizar e manipular os dados, utilize uma ferramenta cliente de banco de dados da sua preferência, como **HeidiSQL**, **DBeaver** ou **MySQL Workbench**.
