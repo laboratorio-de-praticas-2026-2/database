@@ -47,7 +47,7 @@ git clone https://github.com/laboratorio-de-praticas-2026-2/database.git
 cd <project-directory>
 
 # Inicie os serviços
-docker compose -f compose.dba.yml up --build -d
+docker compose -f compose.dba.yml up -d
 
 #Configure Variáveis de ambiente
 cp .env.example .env
