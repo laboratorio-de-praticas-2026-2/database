@@ -13,6 +13,29 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  migration:
+    image: node:22-bookworm
+    restart: "no"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      DATABASE_URL: "mysql://app_user:app_password@mysql-db:3306/lp_contabil_portal"
+    command:
+      - sh
+      - -c
+      - npm ci && npx prisma migrate deploy --config ./prisma7.config.ts
 
 volumes:
   mysql_data:
