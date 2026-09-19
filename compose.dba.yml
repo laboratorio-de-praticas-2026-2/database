@@ -35,7 +35,7 @@ services:
     command:
       - sh
       - -c
-      - npm ci && npx prisma migrate deploy --config ./prisma7.config.ts
+      - npm ci && npx prisma migrate deploy --config ./prisma7.config.ts && npx prisma db seed --config ./prisma7.config.ts
 
 volumes:
   mysql_data:
