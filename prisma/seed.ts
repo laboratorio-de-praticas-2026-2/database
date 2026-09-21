@@ -14,6 +14,7 @@ import {
   StatusValidacao,
   RelatorioCategoria,
   CategoriaBlog,
+  NaturezaCobranca
 } from "../generated/prisma/client.js";
 
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
@@ -622,6 +623,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01"),
       vencimento: new Date("2026-09-30"),
+      naturezaCobranca: NaturezaCobranca.servico_avulso,
     },
     {
       id: 2,
@@ -631,6 +633,7 @@ async function main() {
       status: ObrigacaoStatus.pago,
       competencia: new Date("2026-08-01"),
       vencimento: new Date("2026-09-10"),
+      naturezaCobranca: NaturezaCobranca.servico_avulso,
     },
     {
       id: 3,
@@ -640,6 +643,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01"),
       vencimento: new Date("2026-09-25"),
+      naturezaCobranca: NaturezaCobranca.tributo,
     },
     {
       id: 4,
@@ -649,6 +653,7 @@ async function main() {
       status: ObrigacaoStatus.pago,
       competencia: new Date("2026-08-01"),
       vencimento: new Date("2026-09-05"),
+      naturezaCobranca: NaturezaCobranca.mensalidade,
     },
   ];
 
@@ -662,6 +667,7 @@ async function main() {
         status: obrigacao.status,
         competencia: obrigacao.competencia,
         vencimento: obrigacao.vencimento,
+        naturezaCobranca: obrigacao.naturezaCobranca,
       },
       create: obrigacao,
     });
@@ -790,6 +796,7 @@ async function main() {
       numeroParcela: 1,
       status: ParcelaStatus.pago,
       vencimento: new Date("2026-09-05"),
+      dataPagamento: new Date("2026-09-01"),
     },
     {
       id: 2,
@@ -798,6 +805,7 @@ async function main() {
       numeroParcela: 2,
       status: ParcelaStatus.ativo,
       vencimento: new Date("2026-10-05"),
+      dataPagamento: null,
     },
   ];
 
@@ -810,6 +818,7 @@ async function main() {
         numeroParcela: parcela.numeroParcela,
         status: parcela.status,
         vencimento: parcela.vencimento,
+        dataPagamento: parcela.dataPagamento,
       },
       create: parcela,
     });

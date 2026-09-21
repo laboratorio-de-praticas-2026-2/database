@@ -100,6 +100,12 @@ enum CategoriaBlog {
   SimplesNacional
 }
 
+enum NaturezaCobranca {
+  mensalidade
+  servico_avulso
+  tributo
+}
+
 // ────────────────────────────  MODELS  ────────────────────────────
 
 model Banner {
@@ -275,6 +281,7 @@ model Obrigacao {
   status      ObrigacaoStatus @default(pendente)
   competencia DateTime?       @db.Date
   vencimento  DateTime?       @db.Date
+  naturezaCobranca NaturezaCobranca? @map("natureza_cobranca")
   createdAt   DateTime        @default(now()) @map("created_at")
   updatedAt   DateTime        @updatedAt @map("updated_at")
   deletedAt   DateTime?       @map("deleted_at")
@@ -338,6 +345,7 @@ model Parcela {
   numeroParcela Int           @map("numero_parcela")
   status        ParcelaStatus @default(ativo)
   vencimento    DateTime      @db.Date
+  dataPagamento DateTime? @map("data_pagamento")
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime      @updatedAt @map("updated_at")
   deletedAt     DateTime?     @map("deleted_at")
