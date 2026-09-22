@@ -797,7 +797,62 @@ async function main() {
 
   console.log("Relações obrigação-empresa criadas.");
 
+  // ============================================================
+  // PAGAMENTOS
+  // ============================================================
 
+  const pagamentos = [
+    {
+      id: 1,
+      idObrigacao: 2,
+      valorTotal: 900.0,
+      tipoPagamento: TipoPagamento.avista,
+      qtdParcelas: 1,
+      metodoPagamento: "pix",
+    },
+    {
+      id: 2,
+      idObrigacao: 4,
+      valorTotal: 300.0,
+      tipoPagamento: TipoPagamento.parcelado,
+      qtdParcelas: 2,
+      metodoPagamento: "cartao_credito",
+    },
+    {
+      id: 3,
+      idObrigacao: 1,
+      valorTotal: 350.0,
+      tipoPagamento: TipoPagamento.avista,
+      qtdParcelas: 1,
+      metodoPagamento: "transferencia",
+    },
+    {
+      id: 4,
+      idObrigacao: 3,
+      valorTotal: 400.0,
+      tipoPagamento: TipoPagamento.parcelado,
+      qtdParcelas: 2,
+      metodoPagamento: "boleto",
+      deletedAt: new Date("2026-09-12T12:00:00-03:00"),
+    },
+  ];
+
+  for (const pagamento of pagamentos) {
+    await prisma.pagamento.upsert({
+      where: { id: pagamento.id },
+      update: {
+        idObrigacao: pagamento.idObrigacao,
+        valorTotal: pagamento.valorTotal,
+        tipoPagamento: pagamento.tipoPagamento,
+        qtdParcelas: pagamento.qtdParcelas,
+        metodoPagamento: pagamento.metodoPagamento,
+        deletedAt: pagamento.deletedAt ?? null,
+      },
+      create: pagamento,
+    });
+  }
+
+  console.log("Pagamentos criados.");
   
 
 
@@ -1007,4 +1062,4 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
-  });
+  }); 
