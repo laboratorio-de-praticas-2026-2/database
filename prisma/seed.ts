@@ -667,6 +667,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: new Date("2026-09-30T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 2,
@@ -676,6 +677,7 @@ async function main() {
       status: ObrigacaoStatus.pago,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: new Date("2026-09-10T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 3,
@@ -685,6 +687,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: new Date("2026-09-25T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 4,
@@ -694,6 +697,7 @@ async function main() {
       status: ObrigacaoStatus.pago,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: new Date("2026-09-05T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 5,
@@ -703,6 +707,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: hoje,
+      naturezaCobranca: "tributo",
     },
     {
       id: 6,
@@ -712,6 +717,7 @@ async function main() {
       status: ObrigacaoStatus.pendente,
       competencia: new Date("2026-08-01T12:00:00-03:00"),
       vencimento: em7Dias,
+      naturezaCobranca: "tributo",
     },
   ];
 
@@ -725,6 +731,7 @@ async function main() {
         status: obrigacao.status,
         competencia: obrigacao.competencia,
         vencimento: obrigacao.vencimento,
+        naturezaCobranca: obrigacao.naturezaCobranca,
       },
       create: obrigacao,
     });
@@ -868,6 +875,7 @@ async function main() {
       numeroParcela: 1,
       status: ParcelaStatus.pago,
       vencimento: new Date("2026-09-05T12:00:00-03:00"),
+      dataPagamento: new Date("2026-09-05T14:30:00-03:00"),
     },
     {
       id: 2,
@@ -876,6 +884,7 @@ async function main() {
       numeroParcela: 2,
       status: ParcelaStatus.pago,
       vencimento: new Date("2026-10-05T12:00:00-03:00"),
+      dataPagamento: new Date("2026-10-05T09:15:00-03:00"),
     },
     {
       id: 3,
@@ -884,6 +893,7 @@ async function main() {
       numeroParcela: 1,
       status: ParcelaStatus.pago,
       vencimento: new Date("2026-09-10T12:00:00-03:00"),
+      dataPagamento: new Date("2026-09-10T16:45:00-03:00"),
     },
     {
       id: 4,
@@ -892,6 +902,7 @@ async function main() {
       numeroParcela: 1,
       status: ParcelaStatus.ativo,
       vencimento: new Date("2026-09-30T12:00:00-03:00"),
+      dataPagamento: null,
     },
     {
       id: 5,
@@ -900,6 +911,7 @@ async function main() {
       numeroParcela: 1,
       status: ParcelaStatus.ativo,
       vencimento: new Date("2026-08-15T12:00:00-03:00"),
+      dataPagamento: null,
     },
     {
       id: 6,
@@ -908,6 +920,7 @@ async function main() {
       numeroParcela: 2,
       status: ParcelaStatus.ativo,
       vencimento: new Date("2026-10-15T12:00:00-03:00"),
+      dataPagamento: null,
     },
   ];
 
@@ -920,6 +933,7 @@ async function main() {
         numeroParcela: parcela.numeroParcela,
         status: parcela.status,
         vencimento: parcela.vencimento,
+        dataPagamento: parcela.dataPagamento,
       },
       create: parcela,
     });
