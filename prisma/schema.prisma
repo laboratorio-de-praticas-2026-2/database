@@ -258,7 +258,7 @@ model DocumentoSolicitacao {
   nomeHash        String?         @map("nome_hash") @db.VarChar(191)
   tipoDocumento   String?         @map("tipo_documento") @db.VarChar(100)
   statusValidacao StatusValidacao @default(pendente) @map("status_validacao")
-  dataUpload      DateTime?       @default(now()) @map("data_upload")
+  dataUpload      DateTime?       @map("data_upload")
   updatedAt       DateTime        @updatedAt @map("updated_at")
   deletedAt       DateTime?       @map("deleted_at")
 
