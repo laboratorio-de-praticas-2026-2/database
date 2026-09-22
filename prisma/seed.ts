@@ -223,6 +223,7 @@ async function main() {
       prazoEstimadoDias: 3,
       ativo: true,
       exigeEmpresa: true,
+      deletedAt: new Date("2026-09-10T12:00:00-03:00"),
     },
   ];
 
@@ -236,6 +237,7 @@ async function main() {
         prazoEstimadoDias: servico.prazoEstimadoDias,
         ativo: servico.ativo,
         exigeEmpresa: servico.exigeEmpresa,
+        deletedAt: servico.deletedAt ?? null,
       },
       create: servico,
     });
@@ -508,6 +510,7 @@ async function main() {
       status: SolicitacaoStatus.em_andamento,
       observacaoCliente: "Preciso regularizar os débitos da empresa.",
       observacaoAdmin: null,
+      dataSolicitacao: new Date("2026-09-01T12:00:00-03:00"),
     },
     {
       id: 2,
@@ -517,6 +520,8 @@ async function main() {
       status: SolicitacaoStatus.recebido,
       observacaoCliente: "Gostaria de analisar possibilidades de planejamento tributário.",
       observacaoAdmin: null,
+      dataSolicitacao: new Date("2026-09-05T12:00:00-03:00"),
+      deletedAt: new Date("2026-09-10T12:00:00-03:00"),
     },
     {
       id: 3,
@@ -526,6 +531,7 @@ async function main() {
       status: SolicitacaoStatus.aguardando_documento,
       observacaoCliente: "Preciso de apoio para uma obrigação acessória.",
       observacaoAdmin: "Aguardando documentos da empresa.",
+      dataSolicitacao: new Date("2026-09-08T12:00:00-03:00"),
     },
     {
       id: 4,
@@ -535,7 +541,19 @@ async function main() {
       status: SolicitacaoStatus.concluido,
       observacaoCliente: "Preciso analisar uma questão contábil.",
       observacaoAdmin: "Atendimento concluído.",
-      dataConclusao: new Date("2026-09-15"),
+      dataConclusao: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+      dataSolicitacao: new Date("2026-09-02T12:00:00-03:00"),
+    },
+    {
+      id: 5,
+      usuarioId: 2,
+      empresaId: 1,
+      servicoId: 6,
+      status: SolicitacaoStatus.concluido,
+      observacaoCliente: "Revisão tributária realizada no mês anterior.",
+      observacaoAdmin: "Concluído com sucesso.",
+      dataConclusao: new Date("2026-08-20T12:00:00-03:00"),
+      dataSolicitacao: new Date("2026-08-10T12:00:00-03:00"),
     },
   ];
 
@@ -550,6 +568,8 @@ async function main() {
         observacaoCliente: solicitacao.observacaoCliente,
         observacaoAdmin: solicitacao.observacaoAdmin,
         dataConclusao: solicitacao.dataConclusao,
+        dataSolicitacao: solicitacao.dataSolicitacao,
+        deletedAt: solicitacao.deletedAt ?? null,
       },
       create: solicitacao,
     });
@@ -569,6 +589,7 @@ async function main() {
       nomeHash: "documento_empresa_001.pdf",
       tipoDocumento: "Documento empresarial",
       statusValidacao: StatusValidacao.aprovado,
+      dataUpload: new Date("2026-09-01T12:00:00-03:00"),
     },
     {
       id: 2,
@@ -576,6 +597,7 @@ async function main() {
       nomeHash: "certidao_001.pdf",
       tipoDocumento: "Certidão",
       statusValidacao: StatusValidacao.pendente,
+      dataUpload: new Date("2026-09-02T12:00:00-03:00"),
     },
     {
       id: 3,
@@ -583,6 +605,7 @@ async function main() {
       nomeHash: "obrigacao_003.pdf",
       tipoDocumento: "Documento fiscal",
       statusValidacao: StatusValidacao.pendente,
+      dataUpload: new Date("2026-09-08T12:00:00-03:00"),
     },
     {
       id: 4,
@@ -590,6 +613,23 @@ async function main() {
       nomeHash: "documento_contabil_004.pdf",
       tipoDocumento: "Documento contábil",
       statusValidacao: StatusValidacao.aprovado,
+      dataUpload: new Date("2026-09-03T12:00:00-03:00"),
+    },
+    {
+      id: 5,
+      solicitacaoId: 3,
+      nomeHash: null,
+      tipoDocumento: "Contrato Social Atualizado",
+      dataUpload: null,
+      statusValidacao: StatusValidacao.pendente,
+    },
+    {
+      id: 6,
+      solicitacaoId: 3,
+      nomeHash: null,
+      tipoDocumento: "Comprovante de Inscrição Estadual",
+      dataUpload: null,
+      statusValidacao: StatusValidacao.pendente,
     },
   ];
 
@@ -601,6 +641,7 @@ async function main() {
         nomeHash: documento.nomeHash,
         tipoDocumento: documento.tipoDocumento,
         statusValidacao: documento.statusValidacao,
+        dataUpload: documento.dataUpload ?? null,
       },
       create: documento,
     });
@@ -612,6 +653,10 @@ async function main() {
   // ============================================================
   // OBRIGAÇÕES
   // ============================================================
+  
+  const hoje = new Date();
+  const em7Dias = new Date();
+  em7Dias.setDate(hoje.getDate() + 7);
 
   const obrigacoes = [
     {
@@ -620,8 +665,9 @@ async function main() {
       descricao: "Regularização de débitos fiscais",
       valor: 350.0,
       status: ObrigacaoStatus.pendente,
-      competencia: new Date("2026-08-01"),
-      vencimento: new Date("2026-09-30"),
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: new Date("2026-09-30T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 2,
@@ -629,8 +675,9 @@ async function main() {
       descricao: "Planejamento tributário",
       valor: 900.0,
       status: ObrigacaoStatus.pago,
-      competencia: new Date("2026-08-01"),
-      vencimento: new Date("2026-09-10"),
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: new Date("2026-09-10T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 3,
@@ -638,8 +685,9 @@ async function main() {
       descricao: "Regularização de obrigação fiscal",
       valor: 400.0,
       status: ObrigacaoStatus.pendente,
-      competencia: new Date("2026-08-01"),
-      vencimento: new Date("2026-09-25"),
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: new Date("2026-09-25T12:00:00-03:00"),
+      naturezaCobranca: null,
     },
     {
       id: 4,
@@ -647,8 +695,29 @@ async function main() {
       descricao: "Consultoria contábil",
       valor: 300.0,
       status: ObrigacaoStatus.pago,
-      competencia: new Date("2026-08-01"),
-      vencimento: new Date("2026-09-05"),
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: new Date("2026-09-05T12:00:00-03:00"),
+      naturezaCobranca: null,
+    },
+    {
+      id: 5,
+      tipo: ObrigacaoTipo.empresa,
+      descricao: "DAS / Simples Nacional",
+      valor: 150.0,
+      status: ObrigacaoStatus.pendente,
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: hoje,
+      naturezaCobranca: "tributo",
+    },
+    {
+      id: 6,
+      tipo: ObrigacaoTipo.empresa,
+      descricao: "Taxa de Funcionamento",
+      valor: 200.0,
+      status: ObrigacaoStatus.pendente,
+      competencia: new Date("2026-08-01T12:00:00-03:00"),
+      vencimento: em7Dias,
+      naturezaCobranca: "tributo",
     },
   ];
 
@@ -657,11 +726,12 @@ async function main() {
       where: { id: obrigacao.id },
       update: {
         tipo: obrigacao.tipo,
-        descricao: obrigacao.descricao,
+        descricao: obrigacao.descricao, 
         valor: obrigacao.valor,
         status: obrigacao.status,
         competencia: obrigacao.competencia,
         vencimento: obrigacao.vencimento,
+        naturezaCobranca: obrigacao.naturezaCobranca,
       },
       create: obrigacao,
     });
@@ -734,7 +804,6 @@ async function main() {
 
   console.log("Relações obrigação-empresa criadas.");
 
-
   // ============================================================
   // PAGAMENTOS
   // ============================================================
@@ -744,19 +813,34 @@ async function main() {
       id: 1,
       idObrigacao: 2,
       valorTotal: 900.0,
-      qtdParcelas: 1,
       tipoPagamento: TipoPagamento.avista,
+      qtdParcelas: 1,
       metodoPagamento: "pix",
-      taxa: 0.0,
     },
     {
       id: 2,
       idObrigacao: 4,
       valorTotal: 300.0,
-      qtdParcelas: 2,
       tipoPagamento: TipoPagamento.parcelado,
-      metodoPagamento: "cartao",
-      taxa: 15.0,
+      qtdParcelas: 2,
+      metodoPagamento: "cartao_credito",
+    },
+    {
+      id: 3,
+      idObrigacao: 1,
+      valorTotal: 350.0,
+      tipoPagamento: TipoPagamento.avista,
+      qtdParcelas: 1,
+      metodoPagamento: "transferencia",
+    },
+    {
+      id: 4,
+      idObrigacao: 3,
+      valorTotal: 400.0,
+      tipoPagamento: TipoPagamento.parcelado,
+      qtdParcelas: 2,
+      metodoPagamento: "boleto",
+      deletedAt: new Date("2026-09-12T12:00:00-03:00"),
     },
   ];
 
@@ -766,16 +850,17 @@ async function main() {
       update: {
         idObrigacao: pagamento.idObrigacao,
         valorTotal: pagamento.valorTotal,
-        qtdParcelas: pagamento.qtdParcelas,
         tipoPagamento: pagamento.tipoPagamento,
+        qtdParcelas: pagamento.qtdParcelas,
         metodoPagamento: pagamento.metodoPagamento,
-        taxa: pagamento.taxa,
+        deletedAt: pagamento.deletedAt ?? null,
       },
       create: pagamento,
     });
   }
 
   console.log("Pagamentos criados.");
+  
 
 
   // ============================================================
@@ -789,15 +874,53 @@ async function main() {
       valor: 150.0,
       numeroParcela: 1,
       status: ParcelaStatus.pago,
-      vencimento: new Date("2026-09-05"),
+      vencimento: new Date("2026-09-05T12:00:00-03:00"),
+      dataPagamento: new Date("2026-09-05T14:30:00-03:00"),
     },
     {
       id: 2,
       idPagamento: 2,
       valor: 150.0,
       numeroParcela: 2,
+      status: ParcelaStatus.pago,
+      vencimento: new Date("2026-10-05T12:00:00-03:00"),
+      dataPagamento: new Date("2026-10-05T09:15:00-03:00"),
+    },
+    {
+      id: 3,
+      idPagamento: 1,
+      valor: 900.0,
+      numeroParcela: 1,
+      status: ParcelaStatus.pago,
+      vencimento: new Date("2026-09-10T12:00:00-03:00"),
+      dataPagamento: new Date("2026-09-10T16:45:00-03:00"),
+    },
+    {
+      id: 4,
+      idPagamento: 3,
+      valor: 350.0,
+      numeroParcela: 1,
       status: ParcelaStatus.ativo,
-      vencimento: new Date("2026-10-05"),
+      vencimento: new Date("2026-09-30T12:00:00-03:00"),
+      dataPagamento: null,
+    },
+    {
+      id: 5,
+      idPagamento: 4,
+      valor: 200.0,
+      numeroParcela: 1,
+      status: ParcelaStatus.ativo,
+      vencimento: new Date("2026-08-15T12:00:00-03:00"),
+      dataPagamento: null,
+    },
+    {
+      id: 6,
+      idPagamento: 4,
+      valor: 200.0,
+      numeroParcela: 2,
+      status: ParcelaStatus.ativo,
+      vencimento: new Date("2026-10-15T12:00:00-03:00"),
+      dataPagamento: null,
     },
   ];
 
@@ -810,6 +933,7 @@ async function main() {
         numeroParcela: parcela.numeroParcela,
         status: parcela.status,
         vencimento: parcela.vencimento,
+        dataPagamento: parcela.dataPagamento,
       },
       create: parcela,
     });
@@ -952,4 +1076,4 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
-  });
+  }); 

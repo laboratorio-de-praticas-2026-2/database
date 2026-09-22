@@ -258,7 +258,7 @@ model DocumentoSolicitacao {
   nomeHash        String?         @map("nome_hash") @db.VarChar(191)
   tipoDocumento   String?         @map("tipo_documento") @db.VarChar(100)
   statusValidacao StatusValidacao @default(pendente) @map("status_validacao")
-  dataUpload      DateTime?       @default(now()) @map("data_upload")
+  dataUpload      DateTime?       @map("data_upload")
   updatedAt       DateTime        @updatedAt @map("updated_at")
   deletedAt       DateTime?       @map("deleted_at")
 
@@ -268,16 +268,17 @@ model DocumentoSolicitacao {
 }
 
 model Obrigacao {
-  id          Int             @id @default(autoincrement())
-  tipo        ObrigacaoTipo
-  descricao   String?         @db.Text
-  valor       Decimal         @db.Decimal(10, 2)
-  status      ObrigacaoStatus @default(pendente)
-  competencia DateTime?       @db.Date
-  vencimento  DateTime?       @db.Date
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
-  deletedAt   DateTime?       @map("deleted_at")
+  id               Int             @id @default(autoincrement())
+  tipo             ObrigacaoTipo
+  descricao        String?         @db.Text
+  valor            Decimal         @db.Decimal(10, 2)
+  status           ObrigacaoStatus @default(pendente)
+  competencia      DateTime?       @db.Date
+  vencimento       DateTime?       @db.Date
+  naturezaCobranca String?         @map("natureza_cobranca") @db.VarChar(100)
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  deletedAt        DateTime?       @map("deleted_at")
 
   obrigacaoServico ObrigacaoServico?
   pagamento        Pagamento?
@@ -338,6 +339,7 @@ model Parcela {
   numeroParcela Int           @map("numero_parcela")
   status        ParcelaStatus @default(ativo)
   vencimento    DateTime      @db.Date
+  dataPagamento DateTime?     @map("data_pagamento") @db.Date
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime      @updatedAt @map("updated_at")
   deletedAt     DateTime?     @map("deleted_at")
