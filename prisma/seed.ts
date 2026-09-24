@@ -1,6 +1,7 @@
 import "dotenv/config";
 
 import {
+  RelatorioStatus,
   PrismaClient,
   UsuarioNivel,
   ObrigacaoTipo,
@@ -1029,6 +1030,7 @@ async function main() {
       nome: "Relatório Completo - Setembro 2026",
       descricao: "Relatório geral das atividades do sistema.",
       categoria: RelatorioCategoria.relatorio_completo,
+      status: RelatorioStatus.gerado,
       urlDocumentoHash: "relatorio_completo_setembro_2026.pdf",
       dataGeracao: new Date("2026-09-19"),
       periodoInicio: new Date("2026-09-01"),
@@ -1039,6 +1041,7 @@ async function main() {
       nome: "Relatório de Solicitações - Setembro 2026",
       descricao: "Relatório das solicitações registradas no período.",
       categoria: RelatorioCategoria.gestao_solicitacoes,
+      status: RelatorioStatus.gerado,
       urlDocumentoHash: "relatorio_solicitacoes_setembro_2026.pdf",
       dataGeracao: new Date("2026-09-19"),
       periodoInicio: new Date("2026-09-01"),
@@ -1053,6 +1056,7 @@ async function main() {
         nome: relatorio.nome,
         descricao: relatorio.descricao,
         categoria: relatorio.categoria,
+        status:relatorio.status,
         urlDocumentoHash: relatorio.urlDocumentoHash,
         dataGeracao: relatorio.dataGeracao,
         periodoInicio: relatorio.periodoInicio,
