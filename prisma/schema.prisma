@@ -14,6 +14,12 @@ datasource db {
 
 // ─────────────────────────────  ENUMS  ─────────────────────────────
 
+enum RelatorioStatus {
+  pendente
+  gerado
+  falha
+}
+
 enum UsuarioNivel {
   cliente
   administrador
@@ -380,8 +386,9 @@ model Relatorio {
   nome             String             @db.VarChar(150)
   descricao        String?            @db.Text
   categoria        RelatorioCategoria
-  urlDocumentoHash String             @map("url_documento_hash") @db.VarChar(255)
-  dataGeracao      DateTime           @map("data_geracao") @db.Date
+  status           RelatorioStatus    @default(pendente)
+  urlDocumentoHash String?            @map("url_documento_hash") @db.VarChar(255)
+  dataGeracao      DateTime?          @map("data_geracao") @db.Date
   periodoInicio    DateTime?          @map("periodo_inicio") @db.Date
   periodoFim       DateTime?          @map("periodo_fim") @db.Date
   createdAt        DateTime           @default(now()) @map("created_at")
